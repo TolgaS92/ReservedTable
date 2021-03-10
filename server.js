@@ -45,7 +45,7 @@ app.get('/tables/:reserve', (req, res) => {
     return res.json(false);
 });
 
-app.post('/api/tables/reserve', (req, res) => {
+app.post('/tables', (req, res) => {
     const newCustomer = req.body;
     tables.push(newCustomer);
     res.json(newCustomer);
