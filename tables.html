@@ -21,8 +21,8 @@
                 Restaurant</h1>
             <hr class="my-4">
             <p>Book your seat before they are all gone!</p>
-            <a id="reservedTables" class="btn btn-primary btn-lg" style="display: none;" href="/tables" role="button"><i
-                    class="fas fa-table"></i>
+            <a id="reservedTables" class="btn btn-primary btn-lg" style="display: none;" href="/api/tables"
+                role="button"><i class="fas fa-table"></i>
                 View tables</a>
             <a href="./reserve" class="btn btn-danger btn-lg" href="/reserve" role="button"><i class="fas fa-chair"></i>
                 Make Reservation</a>
@@ -87,7 +87,7 @@
         const phoneEl = document.getElementById('phone'); */
 
         tableBtn.addEventListener('click', () => {
-            fetch(`/tables`, {
+            fetch(`/api/tables`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

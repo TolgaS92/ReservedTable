@@ -12,28 +12,32 @@ app.use(express.json());
 
 const tables = [
     {
-        name: 'chris',
+        routeName: 'chris',
+        name: 'Chris',
         phoneNumber: '7202020202',
         email: 'chris@test.com',
         id: 'chrisBecker'
     },
     {
-        name: "becky",
+        routeName: 'becky',
+        name: "Becky",
         phoneNumber: "000000000",
         email: 'test@test.com',
         id: 'beckyback'
     }
 ];
-
+const newCustomer = [];
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'restaurant.html')));
 
 app.get('/reserve', (req, res) => res.sendFile(path.join(__dirname, 'reservation.html')));
 
-app.get('/tables', (req, res) => res.json(tables));
-/* app.get('/tables', (req, res) => res.sendFile(path.join(__dirname, 'tables.html'))); */
+app.get('/api/tables', (req, res) => res.json(tables));
+/* app.get('/api/tables', (req, res) => res.sendFile(path.join(__dirname, 'tables.html'))); */
+app.get('/tables/waitlist', (req, res) => res.json(newCustomer));
 
-app.get('/tables/:reserve', (req, res) => {
+
+app.get('/api/tables/:reserve', (req, res) => {
     const reserved = req.params.reserve;
     console.log(reserved);
 
@@ -45,8 +49,9 @@ app.get('/tables/:reserve', (req, res) => {
     return res.json(false);
 });
 
-app.post('/tables', (req, res) => {
+app.post('/tables/waitlist', (req, res) => {
     const newCustomer = req.body;
+    newCustomer.routeName = newCustomer.name.replace(/\s+/g, '').toLowerCase();
     tables.push(newCustomer);
     res.json(newCustomer);
     console.log(newCustomer);
