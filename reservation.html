@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation Page</title>
+
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="jumbotron">
+            <h1 class="text-center">
+                <span class="fa fa-fire"></span> Hot Restaurant
+            </h1>
+            <hr>
+            <h2 class="text-center">Make your reservation</h2>
+            <br>
+            <div class="text-center">
+                <a href="/tables">
+                    <button class="btn btn-lg btn-primary">
+                        <span class="fa fa-list-alt"></span> View Tables</button>
+                </a>
+                <a href="./">
+                    <button class="btn btn-lg btn-default">
+                        <span class="fa fa-home"></span>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Reservation Page -->
+                <div class="card">
+                    <div class="card-header">
+                        Table Reservation
+                    </div>
+                    <div class="card-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="reserve-name">Name</label>
+                                <input type="text" class="form-control" id="reserve-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="reserve-phone">Phone Number</label>
+                                <input type="text" class="form-control" id="reserve-phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="reserve-email">Email</label>
+                                <input type="text" class="form-control" id="reserve-email">
+                            </div>
+                            <div class="form-group">
+                                <label for="reserve-unique-id">Unique ID</label>
+                                <input type="text" class="form-control" id="reserve-unique-id">
+                            </div>
+                            <button id="add-btn" type="submit" class="btn btn-primary submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="footer">
+            <div class="container">
+                <p><a href="/tables">API Table Link</a> |
+                    <a href="/tables/reserverd/waitinglist">API Wait List</a>
+                </p>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+
+</html>
+<script type="text/javascript">
+    const addBtn = document.getElementById('add-btn');
+    addBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        let custName = document.getElementById('reserve-name').value.trim();
+        let custPhone = document.getElementById('reserve-phone').value.trim();
+        let custEmail = document.getElementById('reserve-email').value.trim();
+        let custId = document.getElementById('reserve-unique-id').value.trim();
+
+        let newCustomer = {
+            name: custName,
+            phoneNumber: parseInt(custPhone),
+            email: custEmail,
+            id: custId
+        };
+
+        fetch('/tables/reserverd/waitinglist', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newCustomer),
+        }).then((response) => response.json())
+            .then((data) => {
+                console.log('reservation.html', data);
+            }).catch((error) => {
+                console.error('Error', error);
+            });
+    });
+</script>

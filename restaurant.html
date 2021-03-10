@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/85aae3647d.js" crossorigin="anonymous"></script>
+    <title>Hot Restaurant
+    </title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron text-center">
+            <h1 class="display-4"><i class="fab fa-gripfire"></i>Hot
+                Restaurant</h1>
+            <hr class="my-4">
+            <p>Book your seat before they are all gone!</p>
+            <div class="text-center">
+                <a id="reservedTables" class="btn btn-primary btn-lg" href="#" role="button"><i
+                        class="fas fa-table"></i>
+                    View tables</a>
+                <a href="./reserve" class="btn btn-danger btn-lg" href="/reserve" role="button"><i
+                        class="fas fa-chair"></i>
+                    Make Reservation</a>
+                <a href="./" id="homeicon" style="display: none;">
+                    <button class="btn btn-lg btn-default">
+                        <span class="fa fa-home"></span>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="row" id="tablerow" style="display: none;">
+            <div class="col-lg-12">
+
+                <!-- Current Tables in Use -->
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Current Reservations</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul id="tableList" class="list-group">
+                            <!-- <li id="listoftable" class="list-group-item mt-4">
+                                
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Waiting List Card -->
+                <div id="waiting" class="card mt-4" style="display: none;">
+                    <div class="card-header">
+                        <h4>Waiting List</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul id="waitList" class="list-group">
+                            <li class="list-group-item mt-4">
+                                <h2 id="table"></h2>
+                                <hr>
+                                <h2 id="id"></h2>
+                                <h2 id="name"></h2>
+                                <h2 id="email"></h2>
+                                <h2 id="phone"></h2>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p><a href="/tables/reserved">API Table Link</a> |
+                <a href="/tables/reserverd/waitinglist">API Wait List</a>
+            </p>
+        </div>
+    </div>
+    <script type="text/javascript">
+        const tableBtn = document.getElementById('reservedTables');
+        const tableNmb = document.getElementById('tablerow');
+        const tableList = document.getElementById('tableList');
+        const ulLi = document.getElementById('listoftable');
+        const waiting = document.getElementById('waiting');
+        const homeIcon = document.getElementById('homeicon');
+        /* const idEl = document.getElementById('id');
+        const nameEl = document.getElementById('name');
+        const emailEl = document.getElementById('email');
+        const phoneEl = document.getElementById('phone'); */
+
+        tableBtn.addEventListener('click', () => {
+            tableBtn.setAttribute('style', 'display: none');
+            homeIcon.setAttribute('style', 'display: inline');
+            fetch(`/tables`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    for (let i = 0; i < data.length; i++) {
+                        function createList() {
+                            let li = document.createElement('li');
+                            li.setAttribute('id', 'listoftable');
+                            li.setAttribute('class', 'list-group-item mt-4');
+                            let hTable = document.createElement('h2');
+                            let hr = document.createElement('hr');
+                            let hTag = document.createElement('h2');
+                            hTag.setAttribute('id', 'id');
+                            let h2Tag = document.createElement('h2');
+                            h2Tag.setAttribute('id', 'name');
+                            let h3Tag = document.createElement('h2');
+                            h3Tag.setAttribute('id', 'email');
+                            let h4Tag = document.createElement('h2');
+                            h4Tag.setAttribute('id', 'phone');
+                            // appendChilds
+                            tableList.appendChild(li);
+                            li.appendChild(hTable);
+                            li.append(hr);
+                            li.appendChild(hTag);
+                            li.appendChild(h2Tag);
+                            li.appendChild(h3Tag);
+                            li.appendChild(h4Tag);
+                            const { id, name, email, phoneNumber } = data[i];
+
+                            if (data[i]) {
+                                tableNmb.setAttribute('style', 'display: block');
+                                waiting.setAttribute('style', 'display: block');
+
+                                hTable.textContent = "Table #" + (i + 1);
+                                hTag.textContent = "id: " + data[i].id;
+                                h2Tag.textContent = "name: " + data[i].name;
+                                h3Tag.textContent = "email: " + data[i].email;
+                                h4Tag.textContent = "number: " + data[i].phoneNumber;
+                            } else {
+                                h2Tag.textContent = 'Nothing to show';
+                                tableNmb.setAttribute('style', 'display: none');
+                                waiting.setAttribute('style', 'display: none');
+                            }
+                        }
+                        createList();
+
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
+        });
+    </script>
+</body>
+
+</html>
