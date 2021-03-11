@@ -164,9 +164,8 @@
                     }
                 })
         }
-
         function clearTable() {
-            fetch(`/tables`, {
+            fetch(`/api/waitlist`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

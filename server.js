@@ -39,7 +39,6 @@ app.get('/api/tables', (req, res) => res.json(tables));
 /* app.get('/api/tables', (req, res) => res.sendFile(path.join(__dirname, 'tables.html'))); */
 app.get('/api/waitlist', (req, res) => res.json(waitingCustomer));
 
-
 app.get('/api/tables/:reserve', (req, res) => {
     const reserved = req.params.reserve;
     console.log(reserved);
@@ -60,10 +59,6 @@ app.post('/api/tables', (req, res) => {
         waitingCustomer.push(req.body)
         res.json(newCustomer);
     }
-    /* const newCustomer = req.body;
-    newCustomer.routeName = newCustomer.name.replace(/\s+/g, '').toLowerCase();
-    tables.push(newCustomer);
-    console.log(newCustomer); */
 })
 
 app.listen(PORT, () => console.log(`App listening on PORT http://localhost:${PORT}`));
