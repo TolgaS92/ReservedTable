@@ -27,8 +27,13 @@ let tables = [
         id: 'beckyback'
     }
 ];
+
+
 let newCustomer = [];
+
 let waitingCustomer = [];
+
+
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'restaurant.html')));
 
 app.get('/reserve', (req, res) => res.sendFile(path.join(__dirname, 'reservation.html')));
@@ -36,7 +41,7 @@ app.get('/reserve', (req, res) => res.sendFile(path.join(__dirname, 'reservation
 app.get('/tables', (req, res) => res.sendFile(path.join(__dirname, 'tables.html')));
 
 app.get('/api/tables', (req, res) => res.json(tables));
-/* app.get('/api/tables', (req, res) => res.sendFile(path.join(__dirname, 'tables.html'))); */
+
 app.get('/api/waitlist', (req, res) => res.json(waitingCustomer));
 
 app.get('/api/tables/:reserve', (req, res) => {
