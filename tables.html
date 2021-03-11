@@ -70,7 +70,7 @@
     </div>
     <script type="text/javascript">
         function runTable() {
-            const tableList = document.getElementById('tableList');
+            let tableList = document.getElementById('tableList');
             fetch(`/api/tables`, {
                 method: 'GET',
                 headers: {
@@ -119,6 +119,52 @@
                     console.error(error);
                 });
         }
+        function waitingCustomers() {
+            let waitingList = document.getElementById('waitList');
+            fetch(`/api/waitlist`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then((response) => response.json())
+                .then((waitData) => {
+                    console.log(waitData);
+                    for (let i = 0; i < waitData.length; i++) {
+                        let liTag = document.createElement('li');
+                        liTag.setAttribute('id', 'listoftable');
+                        liTag.setAttribute('class', 'list-group-item mt-4');
+                        let hTab = document.createElement('h2');
+                        let hrEl = document.createElement('hr');
+                        let hTag2 = document.createElement('h2');
+                        hTag2.setAttribute('id', 'id');
+                        let h2Tag2 = document.createElement('h2');
+                        h2Tag2.setAttribute('id', 'name');
+                        let h3Tag3 = document.createElement('h2');
+                        h3Tag3.setAttribute('id', 'email');
+                        let h4Tag4 = document.createElement('h2');
+                        h4Tag4.setAttribute('id', 'phone');
+                        // appendChilds
+                        waitingList.appendChild(liTag);
+                        liTag.appendChild(hTab);
+                        liTag.append(hrEl);
+                        liTag.appendChild(hTag2);
+                        liTag.appendChild(h2Tag2);
+                        liTag.appendChild(h3Tag3);
+                        liTag.appendChild(h4Tag4);
+                        const { id, name, email, phoneNumber } = waitData[i];
+                        if (waitData[i]) {
+                            hTab.textContent = "Table #" + (i + 1);
+                            hTag2.textContent = "id: " + waitData[i].id;
+                            h2Tag2.textContent = "name: " + waitData[i].name;
+                            h3Tag3.textContent = "email: " + waitData[i].email;
+                            h4Tag4.textContent = "number: " + waitData[i].phoneNumber;
+                        } else {
+                            h2Tag2.textContent = 'Nothing to show';
+                        }
+                    }
+                })
+        }
+
         function clearTable() {
             fetch(`/tables`, {
                 method: 'POST',
@@ -135,6 +181,7 @@
         let clearBtn = document.getElementById('clear');
         clearBtn.addEventListener('click', clearTable);
         runTable();
+        waitingCustomers();
     </script>
 </body>
 
