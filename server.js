@@ -11,22 +11,7 @@ const PORT = process.env.PORT || 3001;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-let tables = [
-    {
-        routeName: 'chris',
-        name: 'Chris',
-        phoneNumber: '7202020202',
-        email: 'chris@test.com',
-        id: 'chrisBecker'
-    },
-    {
-        routeName: 'becky',
-        name: "Becky",
-        phoneNumber: "000000000",
-        email: 'test@test.com',
-        id: 'beckyback'
-    }
-];
+let tables = [];
 
 
 let newCustomer = [];
