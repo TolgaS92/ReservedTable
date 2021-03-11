@@ -50,5 +50,10 @@ app.post('/api/tables', (req, res) => {
         res.json(newCustomer);
     }
 })
+app.delete('/api/tables', (req, res) => {
+    tables = [];
+    newCustomer = [];
+    waitingCustomer = [];
+});
 
 app.listen(PORT, () => console.log(`App listening on PORT http://localhost:${PORT}`));

@@ -165,17 +165,21 @@
                 })
         }
         function clearTable() {
-            fetch(`/api/waitlist`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }).then(function () {
+            fetch(`/api/tables`, {
+                method: 'DELETE',
+            }).then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                }).catch((error) => {
+                    console.error(error);
+                });
+            function clearHtml() {
                 let clearTableList = document.getElementById('tableList');
                 while (clearTableList.firstChild) clearTableList.removeChild(clearTableList.firstChild);
                 let clearWaitList = document.getElementById('waitList');
-                while (clearWaitList.firstChild) clearWaitList.removeChild(clearWaitList.firstChild)
-            })
+                while (clearWaitList.firstChild) clearWaitList.removeChild(clearWaitList.firstChild);
+            }
+            clearHtml();
         }
         let clearBtn = document.getElementById('clear');
         clearBtn.addEventListener('click', clearTable);
