@@ -32,9 +32,11 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'restaurant.html'))
 
 app.get('/reserve', (req, res) => res.sendFile(path.join(__dirname, 'reservation.html')));
 
+app.get('/tables', (req, res) => res.sendFile(path.join(__dirname, 'tables.html')));
+
 app.get('/api/tables', (req, res) => res.json(tables));
 /* app.get('/api/tables', (req, res) => res.sendFile(path.join(__dirname, 'tables.html'))); */
-app.get('/tables/waitlist', (req, res) => res.json(newCustomer));
+app.get('/api/waitlist', (req, res) => res.json(newCustomer));
 
 
 app.get('/api/tables/:reserve', (req, res) => {
@@ -49,7 +51,7 @@ app.get('/api/tables/:reserve', (req, res) => {
     return res.json(false);
 });
 
-app.post('/tables/waitlist', (req, res) => {
+app.post('/api/waitlist', (req, res) => {
     const newCustomer = req.body;
     newCustomer.routeName = newCustomer.name.replace(/\s+/g, '').toLowerCase();
     tables.push(newCustomer);

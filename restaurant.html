@@ -22,11 +22,10 @@
             <hr class="my-4">
             <p>Book your seat before they are all gone!</p>
             <div class="text-center">
-                <a id="reservedTables" class="btn btn-primary btn-lg" href="#" role="button"><i
+                <a id="reservedTables" class="btn btn-primary btn-lg" href="/tables" role="button"><i
                         class="fas fa-table"></i>
                     View tables</a>
-                <a href="./reserve" class="btn btn-danger btn-lg" href="/reserve" role="button"><i
-                        class="fas fa-chair"></i>
+                <a class="btn btn-danger btn-lg" href="/reserve" role="button"><i class="fas fa-chair"></i>
                     Make Reservation</a>
                 <a href="./" id="homeicon" style="display: none;">
                     <button class="btn btn-lg btn-default">
@@ -67,81 +66,11 @@
             </div>
         </div>
         <div>
-            <p><a href="/tables/reserved">API Table Link</a> |
-                <a href="/tables/reserverd/waitinglist">API Wait List</a>
+            <p><a href="/api/tables">API Table Link</a> |
+                <a href="/api/waitlist">API Wait List</a>
             </p>
         </div>
     </div>
-    <script type="text/javascript">
-        const tableBtn = document.getElementById('reservedTables');
-        const tableNmb = document.getElementById('tablerow');
-        const tableList = document.getElementById('tableList');
-        const ulLi = document.getElementById('listoftable');
-        const waiting = document.getElementById('waiting');
-        const homeIcon = document.getElementById('homeicon');
-        /* const idEl = document.getElementById('id');
-        const nameEl = document.getElementById('name');
-        const emailEl = document.getElementById('email');
-        const phoneEl = document.getElementById('phone'); */
-
-        tableBtn.addEventListener('click', () => {
-            tableBtn.setAttribute('style', 'display: none');
-            homeIcon.setAttribute('style', 'display: inline');
-            fetch(`/api/tables`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }).then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    for (let i = 0; i < data.length; i++) {
-                        function createList() {
-                            let li = document.createElement('li');
-                            li.setAttribute('id', 'listoftable');
-                            li.setAttribute('class', 'list-group-item mt-4');
-                            let hTable = document.createElement('h2');
-                            let hr = document.createElement('hr');
-                            let hTag = document.createElement('h2');
-                            hTag.setAttribute('id', 'id');
-                            let h2Tag = document.createElement('h2');
-                            h2Tag.setAttribute('id', 'name');
-                            let h3Tag = document.createElement('h2');
-                            h3Tag.setAttribute('id', 'email');
-                            let h4Tag = document.createElement('h2');
-                            h4Tag.setAttribute('id', 'phone');
-                            // appendChilds
-                            tableList.appendChild(li);
-                            li.appendChild(hTable);
-                            li.append(hr);
-                            li.appendChild(hTag);
-                            li.appendChild(h2Tag);
-                            li.appendChild(h3Tag);
-                            li.appendChild(h4Tag);
-                            const { id, name, email, phoneNumber } = data[i];
-
-                            if (data[i]) {
-                                tableNmb.setAttribute('style', 'display: block');
-                                waiting.setAttribute('style', 'display: block');
-
-                                hTable.textContent = "Table #" + (i + 1);
-                                hTag.textContent = "id: " + data[i].id;
-                                h2Tag.textContent = "name: " + data[i].name;
-                                h3Tag.textContent = "email: " + data[i].email;
-                                h4Tag.textContent = "number: " + data[i].phoneNumber;
-                            } else {
-                                h2Tag.textContent = 'Nothing to show';
-                                tableNmb.setAttribute('style', 'display: none');
-                                waiting.setAttribute('style', 'display: none');
-                            }
-                        }
-                        createList();
-                    }
-                }).catch((error) => {
-                    console.error(error);
-                });
-        });
-    </script>
 </body>
 
 </html>

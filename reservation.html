@@ -25,7 +25,7 @@
             <h2 class="text-center">Make your reservation</h2>
             <br>
             <div class="text-center">
-                <a href="/api/tables">
+                <a href="/tables">
                     <button class="btn btn-lg btn-primary">
                         <span class="fa fa-list-alt"></span> View Tables</button>
                 </a>
@@ -71,8 +71,8 @@
 
         <footer class="footer">
             <div class="container">
-                <p><a href="/tables">API Table Link</a> |
-                    <a href="/tables/reserverd/waitinglist">API Wait List</a>
+                <p><a href="/api/tables">API Table Link</a> |
+                    <a href="/api/waitlist">API Wait List</a>
                 </p>
             </div>
         </footer>
@@ -86,7 +86,6 @@
     const addBtn = document.getElementById('add-btn');
     addBtn.addEventListener('click', (e) => {
         e.preventDefault();
-
         let custName = document.getElementById('reserve-name').value.trim();
         let custPhone = document.getElementById('reserve-phone').value.trim();
         let custEmail = document.getElementById('reserve-email').value.trim();
@@ -99,7 +98,7 @@
             id: custId
         };
 
-        fetch('/tables/waitlist', {
+        fetch('/api/waitlist', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -108,12 +107,14 @@
         }).then((response) => response.json())
             .then((data) => {
                 console.log("data: ", data);
-                if (data.length <= 5) {
+                console.log('reservation.html', data);
+                alert(`You have been set to the table: ${data.name}`);
+                /* if (data.length <= 5) {
                     console.log('reservation.html', data);
                     alert(`You have been set to the table: ${data.name}`);
                 } if (data.length > 5) {
                     alert(`We are having a lack of table,  ${data.name} have been added to waiting list!`);
-                }
+                } */
             }).catch((error) => {
                 console.error('Error', error);
             });
